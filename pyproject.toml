@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "6052"
+version = "0.1.0"
+description = ""
+authors = ["Luke Shiner <luke@lukeshiner.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pyserial = "^3.4"
+flake8 = "^3.7.9"
+eeprom = {git = "https://github.com/lukeshiner/eeprom.git"}
+
+[tool.poetry.dev-dependencies]
+flake8-docstrings = "^1.5.0"
+black = "^19.10b0"
+isort = "^4.3.21"
+pytest = "^5.3.5"
+pytest-cov = "^2.8.1"
+coveralls = "^1.11.1"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
