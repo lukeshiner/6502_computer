@@ -109,3 +109,7 @@ ENV/
 
 # VSCode
 .vscode/
+
+## Compiled Assembler
+*.out
+*.bin
