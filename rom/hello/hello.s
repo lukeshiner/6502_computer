@@ -27,37 +27,41 @@ reset:
 	lda #%00000001 ; Clear display
 	jsr lcd_instruction
 
-	lda #"H"
+	ldx #0
+print:
+	lda message,x
+	beq loop
 	jsr print_char
-	lda #"e"
-	jsr print_char
-	lda #"l"
-	jsr print_char
-	lda #"l"
-	jsr print_char
-	lda #"o"
-	jsr print_char
-	lda #","
-	jsr print_char
-	lda #" "
-	jsr print_char
-	lda #"W"
-	jsr print_char
-	lda #"o"
-	jsr print_char
-	lda #"r"
-	jsr print_char
-	lda #"l"
-	jsr print_char
-	lda #"d"
-	jsr print_char
-	lda #"!"
-	jsr print_char
+	inx
+	jmp print
 
 loop:
 	jmp loop
 
+message: .asciiz "Hello, World!"
+
+lcd_wait:
+	pha
+	lda #%00000000 ; Port B is input
+	sta DDRB
+lcdbusy:
+	lda #RW
+	sta PORTA
+	lda #(RW | E)
+	sta PORTA
+	lda PORTB
+	and #%10000000
+	bne lcdbusy
+
+	lda #RW
+	sta PORTA
+	lda #%11111111 ; Port B is output
+	sta DDRB
+	pla
+	rts
+
 lcd_instruction:
+	jsr lcd_wait
 	sta PORTB
 	lda #0         ; Clear RS/RW/E bits
 	sta PORTA
@@ -68,6 +72,7 @@ lcd_instruction:
 	rts
 
 print_char:
+	jsr lcd_wait
 	sta PORTB
 	lda #RS        ; Set RS; Clear RW/E bits
 	sta PORTA
