@@ -14,7 +14,7 @@ Source files for vas can be found at <http://sun.hasenbraten.de/vasm/index.php?v
 wget http://sun.hasenbraten.de/vasm/release/vasm.tar.gz
 tar xvzf vasm.tar.gz
 cd vasm
-make CPU=2502 SYNTAX=oldstyle
+make CPU=6502 SYNTAX=oldstyle
 cp vasm6502_oldstyle /usr/bin
 cp vobjdump /usr/bin
 ```
